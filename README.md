@@ -19,3 +19,10 @@ The CAT-16 is a fully-functional 16-bit computer that I designed and built from 
   - **assemblerOld.py** is a slightly older version of the assembler that supported fewer instructions and was slightly less advanced.
   - **workingData.txt** is a temp file that the assembler uses when it's parsing variable and label names and converting them into addresses.
   
+# To Do:
+- ALLOW THE USE OF VARIABLES AS OFFSETS (LDA WITH THE ADDRESS X UNITS AWAY FROM OFFSET Y)
+- MAKE CLOCK SPEEDS MORE ACCURATE
+- ASSEMBLER DOESN'T TAKE * = INTO ACCOUNT WHEN FINDING LABEL ADDRESSES
+- SPEED UP ARDUINO SERIAL
+- ALLOW THE INPUT OF ONLY ONE DATA ARGUMENT
+- A CMP INSTRUCTION WOULD BE NICE
