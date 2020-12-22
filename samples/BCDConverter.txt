@@ -1,0 +1,175 @@
+dividend = 512
+divisor = 513
+work = 514
+quotient = 515
+ones = 516
+tens = 517
+hundreds = 518
+thousands = 519
+tenk = 520
+count = 521
+place_index = 522
+bcd = 523
+return = 524
+prev_num = 525
+
+lda #0
+sta prev_num
+outiinst #%00111000
+outiinst #%00001111
+
+;fibb:
+;  lda prev_num
+;  adda #1
+;  sta prev_num
+;  pusha
+;  jsr convert
+;  outiinst #%00000010
+;  outiinst #%00000001
+;  popa
+;  outadata
+;  popa
+;  outadata
+;  popa
+;  outadata
+;  jmp fibb
+;  ;adda prev_num
+
+
+
+convert:
+  ;popa
+  ;sta return
+  lda prev_num
+  adda #1
+  sta prev_num
+  pusha
+  pushi #10
+  jsr setup
+  popa
+  adda #%00110000
+  sta ones
+  popa
+  sta quotient
+  pusha
+  pushi #10
+  jsr setup
+  popa
+  adda #%00110000
+  sta tens
+  popa
+  sta quotient
+  pusha
+  pushi #10
+  jsr setup
+  popa
+  adda #%00110000
+  sta hundreds
+  popa
+  sta quotient
+  lda hundreds
+  outiinst #%00111000
+  outiinst #%00001111
+  outiinst #%00000010
+  outiinst #%00000001
+  outadata
+  lda tens
+  outadata
+  lda ones
+  outadata
+  jmp convert
+  ;lda ones
+  ;pusha
+  ;lda tens
+  ;pusha
+  ;lda hundreds
+  ;pusha
+  ;lda return
+  ;pusha
+  ;rts
+
+
+setup:
+  ;outiinst #%00111000
+  ;outiinst #%00001111
+  ;outiinst #%00000010
+  ;outiinst #%00000001
+  lda #0
+  sta work
+  sta quotient
+  sta bcd
+  lda #16
+  sta count
+  popa
+  sta return
+  popa
+  sta divisor
+  popa
+  sta dividend
+
+main:
+  ;outidata #%01001101
+  lda count
+  suba #0
+  jz finished
+  suba #1
+  sta count
+  lda dividend
+  shla
+  sta dividend
+  lda work
+  jcs carry_set
+  jcc carry_clear
+
+subtract:
+  ;outidata #%01010011
+  suba divisor
+  jcs sub_fail
+  jcc sub_success
+
+sub_success:
+  ;outidata #%01000111
+  sta work
+  lda quotient
+  shla
+  adda #1
+  sta quotient
+  jmp main
+
+sub_fail:
+  ;outidata #%01000010
+  lda quotient
+  shla
+  sta quotient
+  jmp main
+
+carry_set:
+  ;outidata #%01011001
+  shla
+  sta work
+  jmp subtract
+
+carry_clear:
+  ;outidata #%01001110
+  shla
+  adda #1
+  sta work
+  jmp subtract
+
+finished:
+  lda work
+  sta bcd
+  ;outidata #%01000100
+  lda quotient
+  pusha
+  lda bcd
+  pusha
+  lda return
+  pusha
+  rts
+
+
+* = 512
+data 129, 10
+* = 521
+data 16, 520

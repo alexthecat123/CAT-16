@@ -1,0 +1,37 @@
+;divides x by y and puts the result in quotient
+
+
+quotient = 512
+x = 513
+y = 514
+temp = 515
+
+lda #0
+sta quotient    ;zero out the quotient in memory
+
+initDiv:
+  LDA x
+  SUBA #0
+  JZ done     ;make sure that x is not zero and if it is, we're already done
+  LDA y
+  SUBA #0
+  JZ done     ;repeat the same check for y to make sure we're not dividing by zero
+  LDA x
+  STA temp     ;if all is well, put x in the temp space
+
+sub:
+  LDA temp  ;put the current quotient in the A register (can we get rid of this?)
+  SUBA y
+  JCS done       ;subtract y from the dividend in temp and jump to done if it went below zero
+  STA temp       ;if not, store this value back to temp
+  LDA quotient
+  ADDA #1
+  STA quotient
+  JMP sub       ;also if not, increment the quotient and repeat the subtraction process
+
+done:
+  LDA quotient
+  HLT          ;display the final product in the A register and halt execution
+
+* = 513
+data 21, 7     ;the x and y values that we're dividing

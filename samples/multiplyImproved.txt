@@ -1,0 +1,33 @@
+;multiplies two numbers x and y and puts the result in product
+
+
+product = 512
+x = 513
+y = 514
+temp = 515
+
+lda #0
+sta product    ;zero out the product in memory
+
+;check:
+  LDA x
+  SUBA #0
+  JZA done     ;make sure that x is not zero and if it is, we're already done
+  STA temp     ;store x in another location called temp so we don't overwrite it
+
+add:
+  LDA product
+  ADDA y
+  STA product  ;add y to the product and store it away
+  LDA temp
+  SUBA #1
+  JZA done     ;subtract one from x and if the result is zero, we're done (we've added y to itself x times)
+  STA temp
+  JMP add      ;otherwise, store away the new x value and repeat the addition process
+
+done:
+  LDA product
+  HLT          ;display the final product in the A register and halt execution
+
+* = 513
+data 8, 1010   ;the x and y values that we're multiplying

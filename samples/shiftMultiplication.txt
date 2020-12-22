@@ -1,0 +1,68 @@
+multiplicand = 500
+multiplier = 501
+result = 503
+top = 504
+bottom = 505
+
+outiinst #%00111000
+outiinst #%00001111
+outiinst #%00000010
+outiinst #%00000001
+
+lda #0
+sta result ;zero out the result
+lda multiplicand
+sta top
+lda multiplier
+sta bottom ;make copies of our inputs since we'll be changing them
+
+main:
+  outidata #%01001101
+  lda bottom
+  suba #0
+  jz finished ;if the multiplier is zero (shifted enough times), we're done
+  jsr shra ;shift the multiplier to the right
+  sta bottom
+  jcc add_multiplican ;if the lowest bit that was just discarded was a 1, add the multiplicand to the total, shifting it one bit to the left each time
+  lda top
+  shla
+  sta top ;shift the multiplicand one place to the left
+  jmp main
+
+shra:
+  outidata #%01010011
+  sec
+  rcla
+  rcla
+  rcla
+  rcla
+  rcla
+  rcla
+  rcla
+  rcla
+  rcla
+  rcla
+  rcla
+  rcla
+  rcla
+  rcla
+  rcla
+  rcla
+  rts
+
+
+* = 500
+data 255, 255
+
+* = 512
+add_multiplican:
+  outidata #%01000001
+  lda result
+  adda top
+  sta result ;add the multiplicand to the result
+  jmp 34
+
+finished:
+  outidata #%01000100
+  lda result
+  hlt

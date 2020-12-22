@@ -1,0 +1,52 @@
+* = 0
+jmp initLCD
+outChar:
+  lda 512
+  outadata
+  lda 513
+  outadata
+  lda 514
+  outadata
+  lda 515
+  outadata
+  lda 516
+  outadata
+  lda 517
+  outadata
+  lda 518
+  outadata
+  lda 519
+  outadata
+  lda 520
+  outadata
+  lda 521
+  outadata
+  lda 522
+  outadata
+  lda 523
+  outadata
+  lda 524
+  outadata
+  lda 525
+  outadata
+  lda 526
+  outadata
+  lda 527
+  outadata
+  lda 528
+  outadata
+  lda 529
+  outadata
+  lda 530
+  outadata
+  lda 531
+  outadata
+  jmp outChar
+
+
+initLCD:
+  outiinst #%00111000
+  outiinst #%00001111
+  jmp outChar
+* = 512
+data "I love cats so much!"
