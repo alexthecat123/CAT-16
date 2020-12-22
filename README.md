@@ -5,6 +5,7 @@ The CAT-16 is a fully-functional 16-bit computer that I designed and built from 
 
 # Files/Folders:
   - The **ROMs** folder contains the binary files that I burned into the five EEPROMs that I used to store the computer's microcode.
+  - The **Docs** folder contains the schematics and other documents that I drew while creating the computer. Once again, while the documents are mostly accurate, the final design of the computer differs in certain ways from the design laid out by the documents.
   - The **samples** folder contains several assembly language sample programs that I wrote for the CAT-16. They are outlined below.
     - **BCDConverter.txt** converts a number to binary coded decimal so that it can be displayed on the computer's character LCD.
     - **cats.txt** expresses my love for cats by repeatedly printing the message "I love cats so much!" on the LCD.
