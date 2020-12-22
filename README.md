@@ -18,3 +18,7 @@ Files/Folders:
  -assemblerOld.py is a slightly older version of the assembler that supported fewer instructions and was slightly less advanced.
   -workingData.txt is a temp file that the assembler uses when it's parsing variable and label names and converting them into addresses.
   
+ Markup : * Bullet list
+              * Nested bullet
+                  * Sub-nested bullet etc
+          * Bullet list item 2
